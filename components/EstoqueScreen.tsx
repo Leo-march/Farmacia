@@ -74,7 +74,7 @@ export default function EstoqueScreen({ navigate }: Props) {
   }
 
   return (
-    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', background: 'linear-gradient(to bottom, white 55%, #C8102E 100%)' }}>
+    <div style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(to bottom, white 55%, #C8102E 100%)' }}>
       <TopBar navigate={navigate} showLogo userName="Rafaela" />
 
       <button onClick={() => navigate('home')} style={{ position: 'absolute', top: 84, right: 24, background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.5rem', color: '#555' }}>✕</button>

@@ -9,14 +9,8 @@ interface TopBarProps {
 
 export function RaiaLogo({ size = 40 }: { size?: number }) {
   return (
-    <svg width={size * 2.3} height={size} viewBox="0 0 200 80" fill="none">
-      <rect x="0" y="10" width="60" height="60" rx="8" fill="#C8102E" transform="rotate(-5 30 40)"/>
-      <path d="M15 40 L30 25 L45 40 L30 55 Z" fill="white"/>
-      <path d="M30 15 L30 65" stroke="white" strokeWidth="8" strokeLinecap="round"/>
-      <path d="M5 40 L55 40" stroke="white" strokeWidth="8" strokeLinecap="round"/>
-      <text x="70" y="28" fontFamily="Georgia, serif" fontSize="13" fill="#666" fontStyle="italic">Droga</text>
-      <text x="68" y="62" fontFamily="Georgia, serif" fontSize="42" fill="#00758D" fontStyle="italic" fontWeight="700">Raia</text>
-    </svg>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src="/logo-raia.png" alt="Droga Raia" style={{ height: size, width: 'auto', objectFit: 'contain' }} />
   )
 }
 

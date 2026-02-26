@@ -1,6 +1,6 @@
 'use client'
 import { Screen } from '@/app/page'
-import { RaiaLogo, ClockBar, UserIcon } from './TopBar'
+import { ClockBar, UserIcon } from './TopBar'
 
 interface Props { navigate: (s: Screen) => void }
 
@@ -14,7 +14,7 @@ const cards = [
 export default function HomeScreen({ navigate }: Props) {
   return (
     <div style={{
-      width: '100%', height: '100%',
+      width: '100%', height: '100vh',
       background: 'linear-gradient(to bottom, white 45%, #C8102E 100%)',
       display: 'flex', flexDirection: 'column'
     }}>
@@ -35,7 +35,8 @@ export default function HomeScreen({ navigate }: Props) {
 
       {/* Logo */}
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: 40 }}>
-        <RaiaLogo size={54} />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo-raia.png" alt="Droga Raia" style={{ height: 90, width: 'auto', objectFit: 'contain' }} />
       </div>
 
       {/* Cards Grid */}

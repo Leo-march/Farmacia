@@ -6,10 +6,10 @@ import TopBar from './TopBar'
 interface Props { navigate: (s: Screen) => void }
 
 const medicines = [
-  { id: 1, name: 'Tadalafila', qty: '20mg', maker: 'Neo química', expiry: '20/02', stock: 94, lot: 334, img: '🔴', color: '#f5e6b3' },
-  { id: 2, name: 'Dipirona', qty: '20mg', maker: 'Prati Donaduzzi', expiry: '30/05', stock: 49, lot: 794, img: '🟣', color: '#e8d5f0' },
-  { id: 3, name: 'Cloridrato de fluoxetina', qty: '20mg', maker: 'Sandoz', expiry: '30/08', stock: 31, lot: 891, img: '🔵', color: '#d5e8f5' },
-  { id: 4, name: 'Paracetamol', qty: '750mg', maker: 'Tylenol', expiry: '17/10', stock: 19, lot: 875, img: '🔴', color: '#ffd5d5' },
+  { id: 1, name: 'Tadalafila', qty: '20mg', maker: 'Neo química', expiry: '20/02', stock: 94, lot: 334, img: '/tadalafila.png' },
+  { id: 2, name: 'Dipirona', qty: '20mg', maker: 'Prati Donaduzzi', expiry: '30/05', stock: 49, lot: 794, img: '/dipirona.png' },
+  { id: 3, name: 'Cloridrato de fluoxetina', qty: '20mg', maker: 'Sandoz', expiry: '30/08', stock: 31, lot: 891, img: '/fluoxetina.png' },
+  { id: 4, name: 'Paracetamol', qty: '750mg', maker: 'Tylenol', expiry: '17/10', stock: 19, lot: 875, img: '/paracetamol.png' },
 ]
 
 export default function RemediosScreen({ navigate }: Props) {
@@ -35,7 +35,7 @@ export default function RemediosScreen({ navigate }: Props) {
   }
 
   return (
-    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', background: 'linear-gradient(to bottom, white 50%, #C8102E 100%)' }}>
+    <div style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(to bottom, white 50%, #C8102E 100%)' }}>
       <TopBar navigate={navigate} showLogo userName="Rafaela" />
 
       <div style={{ flex: 1, display: 'flex', gap: 0, overflow: 'hidden' }}>
@@ -74,14 +74,15 @@ export default function RemediosScreen({ navigate }: Props) {
                   boxShadow: '0 2px 12px rgba(0,0,0,0.08)'
                 }}
               >
-                {/* Placeholder image box */}
+                {/* Real product image */}
                 <div style={{
                   width: 90, height: 110, borderRadius: 10,
-                  background: med.color,
+                  background: '#f0f0f0',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '2.5rem', flexShrink: 0
+                  flexShrink: 0, overflow: 'hidden'
                 }}>
-                  💊
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={med.img} alt={med.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                 </div>
                 <div style={{ fontSize: '0.82rem', color: '#333', lineHeight: 1.7 }}>
                   <div><b>Nome:</b> {med.name}</div>
