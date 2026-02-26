@@ -556,8 +556,10 @@ video {
 html, body {
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow: visible;
   font-family: 'Segoe UI', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #__next {
@@ -571,4 +573,28 @@ input[type="text"], input[type="search"] {
 
 .tag-ativo { color: #16a34a; }
 .tag-vencido { color: #dc2626; }
+
+/* Image and UI helpers */
+img { background: transparent; display: block; }
+.transparent-img { background: transparent; -o-object-fit: contain; object-fit: contain; }
+.product-img { width: 100%; height: 100%; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.12)); }
+
+/* Buttons */
+.btn { transition: transform .15s ease, box-shadow .15s ease, background .15s ease; }
+.btn:active { transform: translateY(1px) scale(.998); }
+
+/* Simple animations */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes floatY { 0% { transform: translateY(0); } 50% { transform: translateY(-6px); } 100% { transform: translateY(0); } }
+.fade-in { animation: fadeInUp .45s cubic-bezier(.2,.9,.2,1) both; }
+.float { animation: floatY 3.6s ease-in-out infinite; }
+
+/* Cards */
+.card { background: white; border-radius: 14px; box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  .card { border-radius: 12px; }
+  .product-img { filter: drop-shadow(0 4px 12px rgba(0,0,0,0.08)); }
+}
 

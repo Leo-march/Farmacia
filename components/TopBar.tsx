@@ -10,13 +10,13 @@ interface TopBarProps {
 export function RaiaLogo({ size = 40 }: { size?: number }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src="/logo-raia.png" alt="Droga Raia" style={{ height: size, width: 'auto', objectFit: 'contain' }} />
+    <img className="raia-logo fade-in" src="/logo-raia.png" alt="Droga Raia" style={{ height: size, width: 'auto', objectFit: 'contain' }} />
   )
 }
 
 export function UserIcon() {
   return (
-    <div style={{
+    <div className="user-icon float" style={{
       width: 48, height: 48, borderRadius: '50%',
       border: '2px solid #333',
       background: '#f0f0f0',
@@ -39,7 +39,7 @@ export function ClockBar() {
   )
 }
 
-export default function TopBar({ navigate, showLogo = true, userName }: TopBarProps) {
+export default function TopBar({ navigate, showLogo = true, userName = 'Rafaela' }: TopBarProps) {
   return (
     <div style={{
       height: 72,

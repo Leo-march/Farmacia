@@ -77,12 +77,12 @@ export default function RemediosScreen({ navigate }: Props) {
                 {/* Real product image */}
                 <div style={{
                   width: 90, height: 110, borderRadius: 10,
-                  background: '#f0f0f0',
+                  background: 'transparent',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   flexShrink: 0, overflow: 'hidden'
                 }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={med.img} alt={med.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                  <img className="transparent-img product-img" src={med.img} alt={med.name} style={{ width: '100%', height: '100%' }} />
                 </div>
                 <div style={{ fontSize: '0.82rem', color: '#333', lineHeight: 1.7 }}>
                   <div><b>Nome:</b> {med.name}</div>

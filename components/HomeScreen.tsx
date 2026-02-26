@@ -1,6 +1,6 @@
 'use client'
 import { Screen } from '@/app/page'
-import { ClockBar, UserIcon } from './TopBar'
+import TopBar from './TopBar'
 
 interface Props { navigate: (s: Screen) => void }
 
@@ -18,25 +18,12 @@ export default function HomeScreen({ navigate }: Props) {
       background: 'linear-gradient(to bottom, white 45%, #C8102E 100%)',
       display: 'flex', flexDirection: 'column'
     }}>
-      {/* TopBar */}
-      <div style={{
-        height: 72,
-        background: '#e8e8e8',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 28px',
-        borderBottom: '1px solid #ccc',
-      }}>
-        <ClockBar />
-        <div />
-        <UserIcon />
-      </div>
+      <TopBar navigate={navigate} showLogo userName="Rafaela" />
 
       {/* Logo */}
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: 40 }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo-raia.png" alt="Droga Raia" style={{ height: 90, width: 'auto', objectFit: 'contain' }} />
+        <img className="raia-logo fade-in" src="/logo-raia.png" alt="Droga Raia" style={{ height: 90, width: 'auto', objectFit: 'contain' }} />
       </div>
 
       {/* Cards Grid */}
@@ -64,6 +51,7 @@ export default function HomeScreen({ navigate }: Props) {
               transition: 'all 0.18s ease',
               letterSpacing: '-0.02em'
             }}
+            className="btn card"
             onMouseEnter={e => {
               (e.currentTarget as HTMLElement).style.transform = 'scale(1.04)'
               ;(e.currentTarget as HTMLElement).style.boxShadow = '0 12px 32px rgba(0,0,0,0.18)'
