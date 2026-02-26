@@ -78,7 +78,7 @@ export default function Page() {
 
       <button onClick={() => router.push('/')} style={{ position: 'absolute', top: 84, right: 24, background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.5rem', color: '#555' }}>✕</button>
 
-      <div style={{ flex: 1, padding: '20px 40px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ flex: 1, padding: '20px 80px', display: 'flex', flexDirection: 'column', gap: 16 }}>
         {/* Filters */}
         <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#f0f0f0', borderRadius: 999, padding: '8px 16px' }}>
