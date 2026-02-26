@@ -6,7 +6,7 @@ interface TopBarProps {
   userName?: string
 }
 
-export function RaiaLogo({ size = 40 }: { size?: number }) {
+export function RaiaLogo({ size = 60 }: { size?: number }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img className="raia-logo fade-in" src="/logo-raia.png" alt="Droga Raia" style={{ height: size, width: 'auto', objectFit: 'contain' }} />
@@ -31,9 +31,22 @@ export function UserIcon() {
 }
 
 export function ClockBar() {
+  const { useState, useEffect } = require('react')
+  const [now, setNow] = useState(new Date())
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(new Date()), 1000 * 30)
+    return () => clearInterval(id)
+  }, [])
+
+  const dd = String(now.getDate()).padStart(2, '0')
+  const mm = String(now.getMonth() + 1).padStart(2, '0')
+  const hh = String(now.getHours()).padStart(2, '0')
+  const min = String(now.getMinutes()).padStart(2, '0')
+
   return (
     <div style={{ fontSize: '1.1rem', fontWeight: '600', color: '#333', fontVariantNumeric: 'tabular-nums' }}>
-      12/02 &nbsp; 13:43
+      {dd}/{mm} &nbsp; {hh}:{min}
     </div>
   )
 }
@@ -54,8 +67,8 @@ export default function TopBar({ showLogo = true, userName = 'Rafaela' }: TopBar
     }}>
       <ClockBar />
       {showLogo ? (
-        <div onClick={() => router.push('/')} style={{ cursor: 'pointer' }}>
-          <RaiaLogo size={36} />
+          <div onClick={() => router.push('/')} style={{ cursor: 'pointer' }}>
+            <RaiaLogo size={54} />
         </div>
       ) : <div />}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>

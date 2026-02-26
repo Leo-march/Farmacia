@@ -24,7 +24,7 @@ export default function Page() {
         {/* Logo */}
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 40 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="raia-logo fade-in" src="/logo-raia.png" alt="Droga Raia" style={{ height: 90, width: 'auto', objectFit: 'contain' }} />
+            <img className="raia-logo fade-in" src="/logo-raia.png" alt="Droga Raia" style={{ height: 135, width: 'auto', objectFit: 'contain' }} />
         </div>
 
         {/* Cards Grid */}
