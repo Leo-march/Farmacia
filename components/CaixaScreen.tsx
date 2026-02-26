@@ -1,9 +1,7 @@
 'use client'
 import { useState } from 'react'
-import { Screen } from '@/app/page'
+import { useRouter } from 'next/navigation'
 import TopBar from './TopBar'
-
-interface Props { navigate: (s: Screen) => void }
 
 const items = [
   { name: 'MONSTER ENERGY WHITE 473ml', qty: 1, price: 15.99 },
@@ -14,14 +12,15 @@ const items = [
 
 const total = items.reduce((acc, i) => acc + i.qty * i.price, 0)
 
-export default function CaixaScreen({ navigate }: Props) {
+export default function CaixaScreen() {
+  const router = useRouter()
   const [paid, setPaid] = useState<string | null>(null)
 
   return (
     <div style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(to bottom, white 55%, #C8102E 100%)' }}>
-      <TopBar navigate={navigate} showLogo={false} userName="Rafaela" />
+      <TopBar showLogo={false} userName="Rafaela" />
 
-      <button onClick={() => navigate('home')} style={{ position: 'absolute', top: 84, right: 24, background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.8rem', color: '#555' }}>✕</button>
+      <button onClick={() => router.push('/')} style={{ position: 'absolute', top: 84, right: 24, background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.8rem', color: '#555' }}>✕</button>
 
       <div style={{ flex: 1, display: 'flex', gap: 32, padding: '24px 40px', alignItems: 'flex-start' }}>
         {/* Items table */}
@@ -89,7 +88,7 @@ export default function CaixaScreen({ navigate }: Props) {
           ))}
           {paid && (
             <button
-              onClick={() => { navigate('home') }}
+              onClick={() => { router.push('/') }}
               style={{
                 background: '#16a34a', color: 'white', border: 'none',
                 borderRadius: 12, padding: '16px 24px', fontSize: '1rem',

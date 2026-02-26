@@ -1,8 +1,7 @@
 'use client'
-import { Screen } from '@/app/page'
+import { useRouter } from 'next/navigation'
 
 interface TopBarProps {
-  navigate: (s: Screen) => void
   showLogo?: boolean
   userName?: string
 }
@@ -39,7 +38,9 @@ export function ClockBar() {
   )
 }
 
-export default function TopBar({ navigate, showLogo = true, userName = 'Rafaela' }: TopBarProps) {
+export default function TopBar({ showLogo = true, userName = 'Rafaela' }: TopBarProps) {
+  const router = useRouter()
+
   return (
     <div style={{
       height: 72,
@@ -53,7 +54,7 @@ export default function TopBar({ navigate, showLogo = true, userName = 'Rafaela'
     }}>
       <ClockBar />
       {showLogo ? (
-        <div onClick={() => navigate('home')} style={{ cursor: 'pointer' }}>
+        <div onClick={() => router.push('/')} style={{ cursor: 'pointer' }}>
           <RaiaLogo size={36} />
         </div>
       ) : <div />}

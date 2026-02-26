@@ -1,9 +1,7 @@
 'use client'
 import { useState, useRef } from 'react'
-import { Screen } from '@/app/page'
+import { useRouter } from 'next/navigation'
 import TopBar from './TopBar'
-
-interface Props { navigate: (s: Screen) => void }
 
 const medicines = [
   { id: 1, name: 'Tadalafila', qty: '20mg', maker: 'Neo química', expiry: '20/02', stock: 94, lot: 334, img: '/tadalafila.png' },
@@ -12,7 +10,8 @@ const medicines = [
   { id: 4, name: 'Paracetamol', qty: '750mg', maker: 'Tylenol', expiry: '17/10', stock: 19, lot: 875, img: '/paracetamol.png' },
 ]
 
-export default function RemediosScreen({ navigate }: Props) {
+export default function RemediosScreen() {
+  const router = useRouter()
   const [search, setSearch] = useState('')
   const [basket, setBasket] = useState<typeof medicines>([])
   const [dragging, setDragging] = useState<number | null>(null)
@@ -36,7 +35,7 @@ export default function RemediosScreen({ navigate }: Props) {
 
   return (
     <div style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(to bottom, white 50%, #C8102E 100%)' }}>
-      <TopBar navigate={navigate} showLogo userName="Rafaela" />
+      <TopBar showLogo userName="Rafaela" />
 
       <div style={{ flex: 1, display: 'flex', gap: 0, overflow: 'hidden' }}>
         {/* Main content */}
@@ -148,7 +147,7 @@ export default function RemediosScreen({ navigate }: Props) {
 
         {/* Close button */}
         <button
-          onClick={() => navigate('home')}
+          onClick={() => router.push('/')}
           style={{
             position: 'absolute', top: 80, right: 20,
             background: 'none', border: 'none', cursor: 'pointer',

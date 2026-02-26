@@ -1,24 +1,24 @@
 'use client'
-import { Screen } from '@/app/page'
+import { useRouter } from 'next/navigation'
 import TopBar from './TopBar'
 
-interface Props { navigate: (s: Screen) => void }
-
 const cards = [
-  { label: 'Remédios', screen: 'remedios' as Screen, color: '#C8102E' },
-  { label: 'Receitas', screen: 'receitas' as Screen, color: '#555' },
-  { label: 'Estoque', screen: 'estoque' as Screen, color: '#16a34a' },
-  { label: 'Caixa', screen: 'caixa' as Screen, color: '#92400e' },
+  { label: 'Remédios', screen: 'remedios', color: '#C8102E' },
+  { label: 'Receitas', screen: 'receitas', color: '#555' },
+  { label: 'Estoque', screen: 'estoque', color: '#16a34a' },
+  { label: 'Caixa', screen: 'caixa', color: '#92400e' },
 ]
 
-export default function HomeScreen({ navigate }: Props) {
+export default function HomeScreen() {
+  const router = useRouter()
+
   return (
     <div style={{
       width: '100%', height: '100vh',
       background: 'linear-gradient(to bottom, white 45%, #C8102E 100%)',
       display: 'flex', flexDirection: 'column'
     }}>
-      <TopBar navigate={navigate} showLogo userName="Rafaela" />
+      <TopBar showLogo userName="Rafaela" />
 
       {/* Logo */}
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: 40 }}>
@@ -36,9 +36,9 @@ export default function HomeScreen({ navigate }: Props) {
         alignContent: 'center'
       }}>
         {cards.map(({ label, screen, color }) => (
-          <button
+            <button
             key={screen}
-            onClick={() => navigate(screen)}
+            onClick={() => router.push(`/${screen === 'home' ? '' : screen}`)}
             style={{
               border: '2.5px solid #222',
               borderRadius: 20,
