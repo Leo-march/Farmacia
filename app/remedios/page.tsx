@@ -4,16 +4,18 @@ import { useRouter } from 'next/navigation'
 import TopBar from '@/components/TopBar'
 
 const medicines = [
-  { id: 1, name: 'Tadalafila', qty: '20mg', maker: 'Neo química', expiry: '20/02', stock: 94, lot: 334, img: '/tadalafila.png' },
-  { id: 2, name: 'Dipirona', qty: '20mg', maker: 'Prati Donaduzzi', expiry: '30/05', stock: 49, lot: 794, img: '/dipirona.png' },
-  { id: 3, name: 'Cloridrato de fluoxetina', qty: '20mg', maker: 'Sandoz', expiry: '30/08', stock: 31, lot: 891, img: '/fluoxetina.png' },
-  { id: 4, name: 'Paracetamol', qty: '750mg', maker: 'Tylenol', expiry: '17/10', stock: 19, lot: 875, img: '/paracetamol.png' },
+  { id: 1, name: 'Tadalafila', qty: '20mg', maker: 'Neo química', expiry: '20/02', stock: 99, lot: 334, img: '/tadalafila.png' },
+  { id: 2, name: 'Dipirona', qty: '20mg', maker: 'Prati Donaduzzi', expiry: '30/05', stock: 99, lot: 794, img: '/dipirona.png' },
+  { id: 3, name: 'Cloridrato de fluoxetina', qty: '20mg', maker: 'Sandoz', expiry: '30/08', stock: 99, lot: 891, img: '/fluoxetina.png' },
+  { id: 4, name: 'Paracetamol', qty: '750mg', maker: 'Tylenol', expiry: '17/10', stock: 99, lot: 875, img: '/paracetamol.png' },
 ]
+
+type BasketItem = typeof medicines[0] & { amount: number }
 
 export default function Page() {
   const router = useRouter()
   const [search, setSearch] = useState('')
-  const [basket, setBasket] = useState<typeof medicines>([])
+  const [basket, setBasket] = useState<BasketItem[]>([])
   const [dragging, setDragging] = useState<number | null>(null)
   const [dragOver, setDragOver] = useState(false)
 
@@ -27,10 +29,14 @@ export default function Page() {
     if (dragging !== null) {
       const med = medicines.find(m => m.id === dragging)
       if (med && !basket.find(b => b.id === med.id)) {
-        setBasket(prev => [...prev, med])
+        setBasket(prev => [...prev, { ...med, amount: 1 }])
       }
       setDragging(null)
     }
+  }
+
+  const updateAmount = (id: number, value: number) => {
+    setBasket(prev => prev.map(b => b.id === id ? { ...b, amount: Math.max(1, value) } : b))
   }
 
   return (
@@ -40,7 +46,6 @@ export default function Page() {
       <div style={{ flex: 1, display: 'flex', gap: 0, overflow: 'hidden' }}>
         {/* Main content */}
         <div style={{ flex: 1, padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
-          {/* Search */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: '#f0f0f0', borderRadius: 12, padding: '10px 16px' }}>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2.5">
               <circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/>
@@ -53,7 +58,6 @@ export default function Page() {
             />
           </div>
 
-          {/* Cards grid */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, flex: 1 }}>
             {filtered.map(med => (
               <div
@@ -62,24 +66,13 @@ export default function Page() {
                 onDragStart={() => setDragging(med.id)}
                 onDragEnd={() => setDragging(null)}
                 style={{
-                  background: '#f8f8f8',
-                  borderRadius: 16,
-                  padding: 16,
-                  display: 'flex',
-                  gap: 14,
+                  background: '#f8f8f8', borderRadius: 16, padding: 16, display: 'flex', gap: 14,
                   cursor: 'grab',
                   border: dragging === med.id ? '2px dashed #C8102E' : '2px solid transparent',
-                  transition: 'all 0.15s',
-                  boxShadow: '0 2px 12px rgba(0,0,0,0.08)'
+                  transition: 'all 0.15s', boxShadow: '0 2px 12px rgba(0,0,0,0.08)'
                 }}
               >
-                {/* Real product image */}
-                <div style={{
-                  width: 90, height: 110, borderRadius: 10,
-                  background: 'transparent',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  flexShrink: 0, overflow: 'hidden'
-                }}>
+                <div style={{ width: 90, height: 110, borderRadius: 10, background: 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, overflow: 'hidden' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img className="transparent-img product-img" src={med.img} alt={med.name} style={{ width: '100%', height: '100%' }} />
                 </div>
@@ -102,17 +95,13 @@ export default function Page() {
           onDragLeave={() => setDragOver(false)}
           onDrop={handleDrop}
           style={{
-            width: 220,
+            width: 240,
             background: dragOver ? '#fff0f0' : 'white',
             borderLeft: '2px solid',
             borderColor: dragOver ? '#C8102E' : '#ddd',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 16,
-            transition: 'all 0.2s',
-            padding: 16
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            justifyContent: basket.length === 0 ? 'center' : 'flex-start',
+            gap: 16, transition: 'all 0.2s', padding: 16, overflowY: 'auto'
           }}
         >
           {basket.length === 0 ? (
@@ -131,14 +120,55 @@ export default function Page() {
               <p style={{ fontWeight: 700, fontSize: '0.9rem', marginBottom: 12, color: '#333' }}>Na receita:</p>
               {basket.map(b => (
                 <div key={b.id} style={{
-                  background: '#f8f8f8', borderRadius: 8, padding: '8px 10px',
-                  marginBottom: 8, fontSize: '0.8rem', color: '#333', fontWeight: 500
+                  background: '#f8f8f8', borderRadius: 10, padding: '10px 12px',
+                  marginBottom: 10, fontSize: '0.8rem', color: '#333',
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.06)'
                 }}>
-                  {b.name} {b.qty}
-                  <button
-                    onClick={() => setBasket(prev => prev.filter(x => x.id !== b.id))}
-                    style={{ float: 'right', background: 'none', border: 'none', cursor: 'pointer', color: '#C8102E', fontWeight: 700 }}
-                  >✕</button>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                    <span style={{ fontWeight: 600 }}>{b.name} {b.qty}</span>
+                    <button
+                      onClick={() => setBasket(prev => prev.filter(x => x.id !== b.id))}
+                      style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#C8102E', fontWeight: 700, fontSize: '1rem' }}
+                    >✕</button>
+                  </div>
+
+                  {/* Quantity stepper */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span style={{ fontSize: '0.75rem', color: '#666' }}>Qtd:</span>
+                    <button
+                      onClick={() => updateAmount(b.id, b.amount - 1)}
+                      style={{
+                        width: 26, height: 26, borderRadius: 6, border: '1.5px solid #ddd',
+                        background: 'white', cursor: 'pointer', fontWeight: 700, fontSize: '1rem',
+                        color: '#444', display: 'flex', alignItems: 'center', justifyContent: 'center'
+                      }}
+                    >−</button>
+                    <input
+                      type="number"
+                      min={1}
+                      max={b.stock}
+                      value={b.amount}
+                      onChange={e => updateAmount(b.id, parseInt(e.target.value) || 1)}
+                      style={{
+                        width: 42, textAlign: 'center', border: '1.5px solid #ddd',
+                        borderRadius: 6, padding: '3px 4px', fontSize: '0.85rem',
+                        fontWeight: 700, outline: 'none', color: '#222'
+                      }}
+                    />
+                    <button
+                      onClick={() => updateAmount(b.id, b.amount + 1)}
+                      disabled={b.amount >= b.stock}
+                      style={{
+                        width: 26, height: 26, borderRadius: 6, border: '1.5px solid #ddd',
+                        background: 'white',
+                        cursor: b.amount >= b.stock ? 'not-allowed' : 'pointer',
+                        fontWeight: 700, fontSize: '1rem',
+                        color: b.amount >= b.stock ? '#ccc' : '#444',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center'
+                      }}
+                    >+</button>
+                    <span style={{ fontSize: '0.7rem', color: '#999' }}>/ {b.stock}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -158,4 +188,3 @@ export default function Page() {
     </div>
   )
 }
-
