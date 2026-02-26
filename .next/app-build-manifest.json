@@ -1,38 +1,35 @@
 {
   "pages": {
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
-<<<<<<< HEAD
     ],
-    "/estoque/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/estoque/page.js"
+      "static/chunks/app/page.js"
     ],
-    "/caixa/page": [
+    "/remedios/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/caixa/page.js"
+      "static/chunks/app/remedios/page.js"
     ],
     "/receitas/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/receitas/page.js"
     ],
-    "/remedios/page": [
+    "/caixa/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/remedios/page.js"
-=======
->>>>>>> 4ea29e48743bda89af346d46f7a7f27303c5e1c7
+      "static/chunks/app/caixa/page.js"
+    ],
+    "/estoque/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/estoque/page.js"
     ]
   }
 }
