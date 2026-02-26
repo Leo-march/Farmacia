@@ -1,8 +1,6 @@
-'use client'
-import { Screen } from '@/app/page'
-import TopBar from './TopBar'
-
-interface Props { navigate: (s: Screen) => void }
+"use client"
+import { useRouter } from 'next/navigation'
+import TopBar from '@/components/TopBar'
 
 const historico = [
   { date: '11/02', label: 'Maria Landes Chagas - Loratadina 50mg' },
@@ -10,7 +8,6 @@ const historico = [
   { date: '12/02', label: 'Maria Landes Chagas - Hidroxiclorquina 25mg' },
 ]
 
-// Simulated prescription card images using CSS
 function PrescriptionCard({ date, index }: { date: string; index: number }) {
   const colors = ['#f5f0e8', '#ffe8f0', '#f0f0e8']
   const rotations = [-2, 1, 0]
@@ -72,12 +69,13 @@ function PrescriptionCard({ date, index }: { date: string; index: number }) {
   )
 }
 
-export default function HistoricoScreen({ navigate }: Props) {
+export default function Page() {
+  const router = useRouter()
   return (
     <div style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(to bottom, white 50%, #C8102E 100%)' }}>
-      <TopBar navigate={navigate} showLogo userName="Rafaela" />
+      <TopBar showLogo userName="Rafaela" />
 
-      <button onClick={() => navigate('receitas')} style={{ position: 'absolute', top: 84, right: 24, background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.8rem', color: '#555' }}>✕</button>
+      <button onClick={() => router.push('/receitas')} style={{ position: 'absolute', top: 84, right: 24, background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.8rem', color: '#555' }}>✕</button>
 
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-around', padding: '40px 80px' }}>
         {['11/02', '5/04', '12/02'].map((date, i) => (
@@ -87,3 +85,4 @@ export default function HistoricoScreen({ navigate }: Props) {
     </div>
   )
 }
+

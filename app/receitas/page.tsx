@@ -1,9 +1,7 @@
-'use client'
+"use client"
 import { useState } from 'react'
-import { Screen } from '@/app/page'
-import TopBar from './TopBar'
-
-interface Props { navigate: (s: Screen) => void }
+import { useRouter } from 'next/navigation'
+import TopBar from '@/components/TopBar'
 
 const receitas = [
   { id: 1, name: 'Receita Amoxilína', data: '02/06/2026', validade: '10/02/2027', status: 'Ativo' },
@@ -13,7 +11,8 @@ const receitas = [
 
 type Filter = 'Todos' | 'Ativos' | 'Vencidos'
 
-export default function ReceitasScreen({ navigate }: Props) {
+export default function Page() {
+  const router = useRouter()
   const [filter, setFilter] = useState<Filter>('Todos')
   const [search, setSearch] = useState('')
 
@@ -25,9 +24,9 @@ export default function ReceitasScreen({ navigate }: Props) {
 
   return (
     <div style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(to bottom, white 50%, #C8102E 100%)' }}>
-      <TopBar navigate={navigate} showLogo userName="Rafaela" />
+      <TopBar showLogo userName="Rafaela" />
 
-      <button onClick={() => navigate('home')} style={{ position: 'absolute', top: 84, right: 24, background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.8rem', color: '#555' }}>✕</button>
+      <button onClick={() => router.push('/')} style={{ position: 'absolute', top: 84, right: 24, background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.8rem', color: '#555' }}>✕</button>
 
       <div style={{ flex: 1, padding: '24px 40px', display: 'flex', flexDirection: 'column', gap: 20 }}>
         {/* Search + Filters */}
@@ -75,7 +74,7 @@ export default function ReceitasScreen({ navigate }: Props) {
           {[
             { label: 'Cadastrar', icon: '📋' },
             { label: 'Editar', icon: '✏️' },
-            { label: 'Histórico', onClick: () => navigate('historico'), icon: '🕐' },
+            { label: 'Histórico', onClick: () => router.push('/historico'), icon: '🕐' },
           ].map(btn => (
             <button
               key={btn.label}
@@ -97,3 +96,4 @@ export default function ReceitasScreen({ navigate }: Props) {
     </div>
   )
 }
+

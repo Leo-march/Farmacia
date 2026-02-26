@@ -1,9 +1,7 @@
-'use client'
+"use client"
 import { useState } from 'react'
-import { Screen } from '@/app/page'
-import TopBar from './TopBar'
-
-interface Props { navigate: (s: Screen) => void }
+import { useRouter } from 'next/navigation'
+import TopBar from '@/components/TopBar'
 
 type Filter = 'Todos' | 'Em estoque' | 'Maior Estoque' | 'Baixo Estoque'
 
@@ -20,7 +18,8 @@ const initialProducts: Product[] = [
   { id: 2, name: 'amoxicilina', category: 'Antibióticos', qty: 322, price: 11.99 },
 ]
 
-export default function EstoqueScreen({ navigate }: Props) {
+export default function Page() {
+  const router = useRouter()
   const [filter, setFilter] = useState<Filter>('Todos')
   const [search, setSearch] = useState('')
   const [products, setProducts] = useState<Product[]>(initialProducts)
@@ -75,11 +74,11 @@ export default function EstoqueScreen({ navigate }: Props) {
 
   return (
     <div style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(to bottom, white 55%, #C8102E 100%)' }}>
-      <TopBar navigate={navigate} showLogo userName="Rafaela" />
+      <TopBar showLogo userName="Rafaela" />
 
-      <button onClick={() => navigate('home')} style={{ position: 'absolute', top: 84, right: 24, background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.5rem', color: '#555' }}>✕</button>
+      <button onClick={() => router.push('/')} style={{ position: 'absolute', top: 84, right: 24, background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.5rem', color: '#555' }}>✕</button>
 
-      <div style={{ flex: 1, padding: '20px 40px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <div style={{ flex: 1, padding: '20px 80px', display: 'flex', flexDirection: 'column', gap: 16 }}>
         {/* Filters */}
         <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#f0f0f0', borderRadius: 999, padding: '8px 16px' }}>
@@ -189,3 +188,4 @@ export default function EstoqueScreen({ navigate }: Props) {
     </div>
   )
 }
+
