@@ -13,16 +13,7 @@ function PrescriptionCard({ date, index }: { date: string; index: number }) {
   const rotations = [-2, 1, 0]
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 }}>
-      <div style={{
-        width: 200, height: 260, background: colors[index],
-        borderRadius: 8,
-        border: '1px solid #ccc',
-        transform: `rotate(${rotations[index]}deg)`,
-        boxShadow: '0 6px 20px rgba(0,0,0,0.15)',
-        display: 'flex', flexDirection: 'column', padding: 16,
-        overflow: 'hidden'
-      }}>
-        {/* Header */}
+      <div style={{ width: 200, height: 260, background: colors[index], borderRadius: 8, border: '1px solid #ccc', transform: `rotate(${rotations[index]}deg)`, boxShadow: '0 6px 20px rgba(0,0,0,0.15)', display: 'flex', flexDirection: 'column', padding: 16, overflow: 'hidden' }}>
         <div style={{ borderBottom: '2px solid #888', paddingBottom: 8, marginBottom: 10, textAlign: 'center' }}>
           <div style={{ fontSize: '0.55rem', color: '#666', lineHeight: 1.3, fontFamily: 'monospace' }}>
             {index === 1 ? (
@@ -42,7 +33,6 @@ function PrescriptionCard({ date, index }: { date: string; index: number }) {
             )}
           </div>
         </div>
-        {/* Body - handwriting simulation */}
         <div style={{ flex: 1, fontSize: '0.55rem', color: '#444', fontFamily: 'cursive', lineHeight: 1.8 }}>
           {index === 1 ? (
             <>
@@ -59,7 +49,6 @@ function PrescriptionCard({ date, index }: { date: string; index: number }) {
             </>
           )}
         </div>
-        {/* Footer */}
         <div style={{ borderTop: '1px solid #aaa', paddingTop: 6, fontSize: '0.45rem', color: '#666', fontFamily: 'monospace', textAlign: 'center' }}>
           Data: 26/05/12 &nbsp; Médico: _______________
         </div>
@@ -73,10 +62,8 @@ export default function Page() {
   const router = useRouter()
   return (
     <div style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(to bottom, white 50%, #C8102E 100%)' }}>
-      <TopBar showLogo userName="Rafaela" />
-
+      <TopBar showLogo />
       <button onClick={() => router.push('/receitas')} style={{ position: 'absolute', top: 84, right: 24, background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.8rem', color: '#555' }}>✕</button>
-
       <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-around', padding: '40px 80px' }}>
         {['11/02', '5/04', '12/02'].map((date, i) => (
           <PrescriptionCard key={date} date={date} index={i} />
@@ -85,4 +72,3 @@ export default function Page() {
     </div>
   )
 }
-

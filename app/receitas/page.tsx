@@ -32,10 +32,7 @@ interface FormData {
   medico: string
 }
 
-const emptyForm: FormData = {
-  name: '', data: '', validade: '', status: 'Ativo',
-  paciente: '', medicamento: '', medico: ''
-}
+const emptyForm: FormData = { name: '', data: '', validade: '', status: 'Ativo', paciente: '', medicamento: '', medico: '' }
 
 const formFields: { label: string; key: keyof FormData }[] = [
   { label: 'Nome da Receita', key: 'name' },
@@ -46,7 +43,6 @@ const formFields: { label: string; key: keyof FormData }[] = [
   { label: 'Validade (dd/mm/aaaa)', key: 'validade' },
 ]
 
-// ── Defined OUTSIDE Page so it is never recreated on re-render ──
 interface ModalProps {
   title: string
   form: FormData
@@ -65,53 +61,26 @@ function ReceitaModal({ title, form, errors, onChange, onSave, onClose }: ModalP
   })
 
   return (
-<<<<<<< HEAD
-    <div style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(to bottom, white 50%, #C8102E 100%)' }}>
-
-      <button onClick={() => router.push('/')} style={{ position: 'absolute', top: 84, right: 24, background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.8rem', color: '#555' }}>✕</button>
-
-      <div style={{ flex: 1, padding: '24px 40px', display: 'flex', flexDirection: 'column', gap: 20 }}>
-        {/* Search + Filters */}
-        <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, background: '#f0f0f0', borderRadius: 999, padding: '10px 18px', flex: '0 0 280px' }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#888" strokeWidth="2.5">
-              <circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/>
-            </svg>
-            <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Pesquisar" style={{ background: 'none', border: 'none', outline: 'none', fontSize: '1rem', color: '#333' }} />
-=======
     <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.45)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 200 }}>
       <div style={{ background: 'white', borderRadius: 22, padding: 36, width: 480, boxShadow: '0 24px 70px rgba(0,0,0,0.25)', maxHeight: '90vh', overflowY: 'auto' }}>
         <h2 style={{ fontWeight: 800, fontSize: '1.4rem', marginBottom: 24, color: '#111' }}>{title}</h2>
         {formFields.map(f => (
           <div key={f.key} style={{ marginBottom: 14 }}>
             <label style={{ display: 'block', fontWeight: 600, fontSize: '0.85rem', color: '#555', marginBottom: 4 }}>{f.label}</label>
-            <input
-              value={form[f.key] as string}
-              onChange={e => onChange(f.key, e.target.value)}
-              style={inp(f.key)}
-            />
+            <input value={form[f.key] as string} onChange={e => onChange(f.key, e.target.value)} style={inp(f.key)} />
             {errors[f.key] && <span style={{ color: '#dc2626', fontSize: '0.78rem' }}>{errors[f.key]}</span>}
->>>>>>> 8c9dc4d7712ae7274451c79812d1cf4745d45338
           </div>
         ))}
         <div style={{ marginBottom: 20 }}>
           <label style={{ display: 'block', fontWeight: 600, fontSize: '0.85rem', color: '#555', marginBottom: 4 }}>Status</label>
-          <select
-            value={form.status}
-            onChange={e => onChange('status', e.target.value)}
-            style={{ ...inp('status'), cursor: 'pointer' }}
-          >
+          <select value={form.status} onChange={e => onChange('status', e.target.value)} style={{ ...inp('status'), cursor: 'pointer' }}>
             <option value="Ativo">Ativo</option>
             <option value="Vencido">Vencido</option>
           </select>
         </div>
         <div style={{ display: 'flex', gap: 12, marginTop: 8 }}>
-          <button onClick={onSave} style={{ flex: 1, background: '#C8102E', color: 'white', border: 'none', borderRadius: 12, padding: '13px', fontWeight: 700, cursor: 'pointer', fontSize: '1rem' }}>
-            Salvar
-          </button>
-          <button onClick={onClose} style={{ flex: 1, background: '#eee', border: 'none', borderRadius: 12, padding: '13px', fontWeight: 700, cursor: 'pointer', fontSize: '1rem', color: '#555' }}>
-            Cancelar
-          </button>
+          <button onClick={onSave} style={{ flex: 1, background: '#C8102E', color: 'white', border: 'none', borderRadius: 12, padding: '13px', fontWeight: 700, cursor: 'pointer', fontSize: '1rem' }}>Salvar</button>
+          <button onClick={onClose} style={{ flex: 1, background: '#eee', border: 'none', borderRadius: 12, padding: '13px', fontWeight: 700, cursor: 'pointer', fontSize: '1rem', color: '#555' }}>Cancelar</button>
         </div>
       </div>
     </div>
@@ -175,7 +144,7 @@ export default function Page() {
 
   return (
     <div style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(to bottom, white 50%, #C8102E 100%)' }}>
-      <TopBar showLogo userName="Rafaela" />
+      <TopBar showLogo />
       <button onClick={() => router.push('/')} style={{ position: 'absolute', top: 84, right: 24, background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.8rem', color: '#555' }}>✕</button>
 
       <div style={{ flex: 1, padding: '24px 40px', display: 'flex', flexDirection: 'column', gap: 20 }}>

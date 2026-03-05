@@ -49,6 +49,7 @@ export default function Page() {
 
   return (
     <div style={{ width: '100%', height: '100vh', display: 'flex', flexDirection: 'column', background: 'linear-gradient(to bottom, white 50%, #C8102E 100%)' }}>
+      <TopBar showLogo />
 
       <div style={{ flex: 1, display: 'flex', gap: 0, overflow: 'hidden' }}>
         {/* Main content */}
@@ -65,7 +66,6 @@ export default function Page() {
             />
           </div>
 
-          {/* Cards grid — flex: 1 so it fills remaining height */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, flex: 1, overflowY: 'auto' }}>
             {filtered.map(med => (
               <div
@@ -85,21 +85,10 @@ export default function Page() {
                   minHeight: 180,
                 }}
               >
-                {/* Image — tall and prominent */}
-                <div style={{
-                  width: 130, height: 150,
-                  flexShrink: 0,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}>
+                <div style={{ width: 130, height: 150, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={med.img}
-                    alt={med.name}
-                    style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.12))' }}
-                  />
+                  <img src={med.img} alt={med.name} style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block', filter: 'drop-shadow(0 4px 12px rgba(0,0,0,0.12))' }} />
                 </div>
-
-                {/* Info — larger text */}
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 4, overflow: 'hidden' }}>
                   <div style={{ fontWeight: 800, fontSize: '1.1rem', color: '#111', lineHeight: 1.25, marginBottom: 4 }}>{med.name}</div>
                   <div style={{ fontSize: '0.95rem', color: '#444' }}><b>Dosagem:</b> {med.qty}</div>
@@ -113,7 +102,7 @@ export default function Page() {
           </div>
         </div>
 
-        {/* Basket area */}
+        {/* Basket */}
         <div
           onDragOver={e => { e.preventDefault(); setDragOver(true) }}
           onDragLeave={() => setDragOver(false)}
@@ -128,7 +117,6 @@ export default function Page() {
             overflow: 'hidden'
           }}
         >
-          {/* Header */}
           <div style={{ padding: '16px 16px 10px', borderBottom: '1px solid #eee', flexShrink: 0 }}>
             <p style={{ fontWeight: 700, fontSize: '1rem', color: '#333', display: 'flex', alignItems: 'center', gap: 6 }}>
               🛒 Carrinho
@@ -168,8 +156,6 @@ export default function Page() {
                   </div>
                 ))}
               </div>
-
-              {/* Checkout button */}
               <div style={{ padding: 12, borderTop: '1px solid #eee', flexShrink: 0 }}>
                 <button
                   onClick={() => router.push('/caixa')}
@@ -184,7 +170,6 @@ export default function Page() {
           )}
         </div>
 
-        {/* Close button */}
         <button onClick={() => router.push('/')} style={{ position: 'absolute', top: 80, right: 20, background: 'none', border: 'none', cursor: 'pointer', fontSize: '1.8rem', color: '#555', fontWeight: 300 }}>✕</button>
       </div>
     </div>

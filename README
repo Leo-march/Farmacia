@@ -1,0 +1,14 @@
+Farmácia:
+Administrador/Root: Pode tudo
+Gerente da Farmácia: Mesma coisa que o Farmacêutico, mas ele pode excluir as receitas também. Tem acesso ao dashboard para ver os: Médicos que mais receitaram, remédios que mais saem, UBS com mais pedido de receita, quantidade de medicamentos no estoque, quantidade total de medicamentos no estoque, quantidade de medicamentos com estoque baixo.
+Farmacêutico: Pode cadastrar, editar e excluir remédios, mas só pode editar e cadastrar receitas. Pode entregar remédio(Tem frente do caixa, gera uma receita médica)
+Funcionário: Só a frente de caixa
+
+Cadastro de UBS:
+Nome e Endereço(Bairro, rua, número, afins)
+
+Cadastro de médico:
+Cada um deve ter: UBS, CRM
+
+Estoque:
+Não pode faltar, mas não pode ter vencido. Sempre tem que ter unidade de medida, fabricante, lote(Pode ser editado: nome, quantidade e validade), validade, nome, quantidade e composição. Sempre vai sair o lote mais próximo da validade. Medicamentos disponíveis e indisponíveis, Indisponíveis não aparecem na frente de caixa
