@@ -1,10 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation'
-
-interface TopBarProps {
-  showLogo?: boolean
-  userName?: string
-}
+import { useAuth } from '@/context/AuthContext'
 
 export function RaiaLogo({ size = 60 }: { size?: number }) {
   return (
@@ -15,14 +11,13 @@ export function RaiaLogo({ size = 60 }: { size?: number }) {
 
 export function UserIcon() {
   return (
-    <div className="user-icon float" style={{
-      width: 48, height: 48, borderRadius: '50%',
+    <div style={{
+      width: 40, height: 40, borderRadius: '50%',
       border: '2px solid #333',
       background: '#f0f0f0',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      cursor: 'pointer'
     }}>
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#555" strokeWidth="2">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#555" strokeWidth="2">
         <circle cx="12" cy="8" r="4"/>
         <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
       </svg>
@@ -51,8 +46,18 @@ export function ClockBar() {
   )
 }
 
-export default function TopBar({ showLogo = true, userName = 'Rafaela' }: TopBarProps) {
+interface TopBarProps {
+  showLogo?: boolean
+}
+
+export default function TopBar({ showLogo = true }: TopBarProps) {
   const router = useRouter()
+  const { user, logout } = useAuth()
+
+  const handleLogout = () => {
+    logout()
+    router.push('/auth')
+  }
 
   return (
     <div style={{
@@ -63,17 +68,47 @@ export default function TopBar({ showLogo = true, userName = 'Rafaela' }: TopBar
       justifyContent: 'space-between',
       padding: '0 28px',
       borderBottom: '1px solid #ccc',
-      flexShrink: 0
+      flexShrink: 0,
     }}>
       <ClockBar />
+
       {showLogo ? (
-          <div onClick={() => router.push('/')} style={{ cursor: 'pointer' }}>
-            <RaiaLogo size={54} />
+        <div onClick={() => router.push('/')} style={{ cursor: 'pointer' }}>
+          <RaiaLogo size={54} />
         </div>
       ) : <div />}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        {userName && <span style={{ fontWeight: 600, fontSize: '1.1rem', color: '#333' }}>{userName}</span>}
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        {user && (
+          <span style={{ fontWeight: 600, fontSize: '1rem', color: '#333' }}>
+            {user.name}
+          </span>
+        )}
         <UserIcon />
+        {user && (
+          <button
+            onClick={handleLogout}
+            title="Sair"
+            style={{
+              background: 'none', border: '1.5px solid #ccc',
+              borderRadius: 8, padding: '5px 10px',
+              cursor: 'pointer', color: '#666', fontSize: '0.8rem',
+              fontWeight: 600, transition: 'all 0.15s',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = '#C8102E'
+              e.currentTarget.style.color = 'white'
+              e.currentTarget.style.borderColor = '#C8102E'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'none'
+              e.currentTarget.style.color = '#666'
+              e.currentTarget.style.borderColor = '#ccc'
+            }}
+          >
+            Sair
+          </button>
+        )}
       </div>
     </div>
   )

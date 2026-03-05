@@ -1,9 +1,18 @@
-"use client"
-import TopBar from '@/components/TopBar'
+'use client'
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import TopBar from '@/components/TopBar'
+import { useAuth } from '@/context/AuthContext'
 
 export default function Page() {
   const router = useRouter()
+  const { user } = useAuth()
+
+  useEffect(() => {
+    if (!user) router.replace('/auth')
+  }, [user, router])
+
+  if (!user) return null
 
   const cards = [
     { label: 'Remédios', screen: 'remedios', color: '#C8102E' },
@@ -19,15 +28,13 @@ export default function Page() {
         background: 'linear-gradient(to bottom, white 45%, #C8102E 100%)',
         display: 'flex', flexDirection: 'column'
       }}>
-        <TopBar showLogo userName="Rafaela" />
+        <TopBar showLogo />
 
-        {/* Logo */}
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 40 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="raia-logo fade-in" src="/logo-raia.png" alt="Droga Raia" style={{ height: 135, width: 'auto', objectFit: 'contain' }} />
+          <img className="raia-logo fade-in" src="/logo-raia.png" alt="Droga Raia" style={{ height: 135, width: 'auto', objectFit: 'contain' }} />
         </div>
 
-        {/* Cards Grid */}
         <div style={{
           flex: 1,
           display: 'grid',
@@ -39,7 +46,7 @@ export default function Page() {
           {cards.map(({ label, screen, color }) => (
             <button
               key={screen}
-              onClick={() => router.push(`/${screen === 'home' ? '' : screen}`)}
+              onClick={() => router.push(`/${screen}`)}
               style={{
                 border: '2.5px solid #222',
                 borderRadius: 20,
